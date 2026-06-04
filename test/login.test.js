@@ -83,9 +83,97 @@ async function testeLoginInvalido() {
   }
 }
 
+async function testeMostrarOcultarMensagem() {
+  const driver = await criarDriver();
+
+  try {
+    await driver.get(paginaUrl);
+
+    await driver.findElement(By.id("btn-mostrar")).click();
+
+    const mensagemAcao = await driver.findElement(By.id("mensagem-acao"));
+    const textoMensagem = await mensagemAcao.getText();
+    const classesVisiveis = await mensagemAcao.getAttribute("class");
+
+    console.log("Mensagem de ação exibida:", textoMensagem);
+
+    if (!textoMensagem.includes("Mensagem exibida com sucesso!")) {
+      throw new Error("A mensagem de ação não foi exibida corretamente.");
+    }
+
+    if (classesVisiveis.includes("oculto")) {
+      throw new Error("A mensagem de ação deveria estar visível.");
+    }
+
+    await driver.findElement(By.id("btn-ocultar")).click();
+
+    const classesOcultas = await mensagemAcao.getAttribute("class");
+
+    if (!classesOcultas.includes("oculto")) {
+      throw new Error("A mensagem de ação deveria estar oculta.");
+    }
+
+    console.log("Teste de mostrar/ocultar mensagem passou!");
+  } finally {
+    await driver.quit();
+  }
+}
+
+async function testeAdicionarTarefa() {
+  const driver = await criarDriver();
+
+  try {
+    await driver.get(paginaUrl);
+
+    const novaTarefa = "Validar nova tarefa com Selenium";
+
+    await driver.findElement(By.id("nova-tarefa")).sendKeys(novaTarefa);
+    await driver.findElement(By.id("btn-adicionar")).click();
+
+    const itens = await driver.findElements(By.css("#lista-tarefas li"));
+    const ultimoItem = itens[itens.length - 1];
+    const textoUltimoItem = await ultimoItem.getText();
+
+    console.log("Última tarefa adicionada:", textoUltimoItem);
+
+    if (textoUltimoItem !== novaTarefa) {
+      throw new Error("A nova tarefa não foi adicionada corretamente.");
+    }
+
+    console.log("Teste de adicionar tarefa passou!");
+  } finally {
+    await driver.quit();
+  }
+}
+
+async function testeSelecionarCidade() {
+  const driver = await criarDriver();
+
+  try {
+    await driver.get(paginaUrl);
+
+    await driver.findElement(By.css('#cidade option[value="sp"]')).click();
+
+    const textoCidade = await driver.findElement(By.id("cidade-selecionada")).getText();
+
+    console.log("Texto da cidade selecionada:", textoCidade);
+
+    if (!textoCidade.includes("Feira de Santana")) {
+      throw new Error("A cidade selecionada não foi atualizada corretamente.");
+    }
+
+    console.log("Teste de seleção de cidade passou!");
+  } finally {
+    await driver.quit();
+  }
+}
+
 async function executarTestes() {
   await testeLoginValido();
   await testeLoginInvalido();
+  await testeMostrarOcultarMensagem();
+  await testeAdicionarTarefa();
+  await testeSelecionarCidade();
 }
 
 executarTestes().catch(function (erro) {
