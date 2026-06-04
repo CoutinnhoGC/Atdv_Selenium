@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste Selenium WebDriver</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1 id="titulo-principal">Página de Testes Selenium</h1>
+    <p class="subtitulo">Use esta página para praticar automação com WebDriver</p>
+  </header>
+
+  <main>
+    <section id="secao-login" class="card">
+      <h2>Formulário de Login</h2>
+      <form id="form-login">
+        <label for="usuario">Usuário</label>
+        <input type="text" id="usuario" name="usuario" placeholder="Digite seu usuário">
+
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
+
+        <label class="checkbox-label">
+          <input type="checkbox" id="lembrar" name="lembrar">
+          Lembrar-me
+        </label>
+
+        <button type="submit" id="btn-entrar">Entrar</button>
+      </form>
+      <p id="mensagem-login" class="mensagem oculto" role="alert"></p>
+    </section>
+
+    <section id="secao-acoes" class="card">
+      <h2>Ações</h2>
+      <button id="btn-mostrar" class="btn-secundario">Mostrar mensagem</button>
+      <button id="btn-ocultar" class="btn-secundario">Ocultar mensagem</button>
+      <p id="mensagem-acao" class="mensagem oculto">Mensagem exibida com sucesso!</p>
+    </section>
+
+    <section id="secao-lista" class="card">
+      <h2>Lista de Tarefas</h2>
+      <div class="linha">
+        <input type="text" id="nova-tarefa" placeholder="Nova tarefa">
+        <button id="btn-adicionar">Adicionar</button>
+      </div>
+      <ul id="lista-tarefas">
+        <li class="tarefa">Estudar Selenium</li>
+        <li class="tarefa">Escrever um teste automatizado</li>
+      </ul>
+    </section>
+
+    <section id="secao-select" class="card">
+      <h2>Seleção</h2>
+      <label for="cidade">Cidade</label>
+      <select id="cidade" name="cidade">
+        <option value="">Selecione...</option>
+        <option value="sp">Feira de Santana</option>
+        <option value="rj">Salvador</option>
+        <option value="bh">saão Gonçalo</option>
+      </select>
+      <p id="cidade-selecionada">Nenhuma cidade selecionada</p>
+    </section>
+  </main>
+
+  <footer>
+    <a id="link-externo" href="https://www.selenium.dev/" target="_blank">Documentação Selenium</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
